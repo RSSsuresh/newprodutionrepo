@@ -1,3 +1,5 @@
+lsks
+
 # Serverless Cloudwatch Logs To S3 Exporter
 
 AWS Serverless Lambda function that sends log data from CloudWatch Logs and S3.
