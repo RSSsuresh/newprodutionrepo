@@ -1,3 +1,4 @@
+new
 # -*- coding: utf-8 -*-
 """
 .. module: Export Logs from cloudwatch & Store in given S3 Bucket
