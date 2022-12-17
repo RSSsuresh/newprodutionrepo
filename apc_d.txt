@@ -1,0 +1,106 @@
+## Server-Pool Size Regulation (MPM specific)
+##
+
+<IfModule mpm_worker_module>
+        ServerLimit         40
+        StartServers        10
+        MaxClients        2000
+        MinSpareThreads    256
+        MaxSpareThreads    500
+        ThreadsPerChild     50
+        MaxRequestsPerChild  0
+</IfModule>
+
+-------------------
+
+redriect url (need domain aha)
+
+--------------------
+
+
+Mutex                file:/opt/tppinstance/web/apache2-sblistg02/logs/ssl_mutex
+
+
+-----------------------
+
+JkShmFile  /opt/tppinstance/web/apache2-sblistg02/logs/jk-runtime-status.shm
+
+---------------
+
+ ErrorDocument 503 /maintenance/index.htm
+
+Alias /maintenance "/opt/tppinstance/web/maintenance/"
+        <Directory "/opt/tppinstance/web/maintenance/">
+               Options -Indexes +FollowSymLinks
+                AllowOverride None
+                Require all granted
+        </Directory>
+
+
+-------------------
+
+
+
+    $WILDFLY_HOME/bin/cunaeappuat2wf01-standalone.sh -c $2 -b $3
+
+
+
+{jboss.bind.address:10.190.4.63}</wsdl-host>
+
+{jboss.management.http.port:9831}"/>
+        <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9832}"/>
+
+
+        <socket-binding name="ajp" port="${jboss.ajp.port:9953}"/>
+        <socket-binding name="http" port="${jboss.http.port:9954}"/>
+        <socket-binding name="https" port="${jboss.https.port:9955}"/>
+
+
+
+/etc/systemd/system/*-wildfly.service
+
+
+
+
+worker.list=wildfly,jkstatus
+
+#CUNA UAT01
+worker.wildfly.port=8009
+worker.wildfly.host=10.0.3.218
+worker.wildfly.type=ajp13
+worker.wildfly.socket_keepalive=True
+worker.wildfly.socket_timeout=500
+worker.wildfly.connection_pool_timeout=600
+
+worker.jkstatus.type=status
+
+
+
+
+# JK  directives
+
+JkWorkersFile /opt/tppinstance/web/apache2-myinstance/conf/jk-workers.properties
+JkLogFile /opt/tppinstance/logs/logs/mod_jk.log
+JkLogLevel info
+
+#JkShmSize 256
+JkLogStampFormat "[%a %b %d %H:%M:%S %Y] "
+JkRequestLogFormat     "%w %V %T"
+
+
+
+
+JkMount /* wildfly
+
+
+
+
+
+KexAlgorithms ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+
+
+
+
+ 
+
